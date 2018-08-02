@@ -20,10 +20,15 @@ An external clock pin is available at pin P9_26.
 
 Currently, the 4 output configuration is available in this repository.
 
-# Project Installation
+## Project Installation
 
 To install this project:
 
-  - Clone the repository into opt/
-  - sudo chown -R debian:debian opt/NAME_FOLDER
-  -
+  - Clone the repository into the folder: opt/
+  - sudo chown -R debian:debian opt/PRU_Digital_Waveform_Generator-master/  (or rename  the map)
+  - cd opt/PRU_Digital_Waveform_Generator-master/
+  - sudo ./install.sh
+    - If install.sh is not executable perform: chmod +x install.sh
+  - Reboot Beaglebone
+  
+After these steps, the firmware is loaded and ready to be used with e.g. Python (see python-example)
