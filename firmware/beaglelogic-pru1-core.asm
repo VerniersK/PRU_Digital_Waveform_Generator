@@ -1,0 +1,181 @@
+;* Kevin Verniers (DRAMCO) - 1/08/2018
+;*
+;* Original PRUDAQ code from BeagleLogic project was adapted to operate as 
+;* transmitter. An external clock can be supplied via P9_26. The output 
+;* configuration is set at 4 outputs (LSb to MSb: P8_45, P8_46, P8_43, P8_44).
+;*
+;* Copyright (C) 2014 Kumar Abhishek <abhishek@theembeddedkitchen.net>
+;*
+;*
+;* This file is a part of the BeagleLogic project
+;*
+;* This program is free software; you can redistribute it and/or modify
+;* it under the terms of the GNU General Public License version 2 as
+;* published by the Free Software Foundation.
+
+	.include "beaglelogic-pru-defs.inc"
+
+; This manner results in a 50 MHz clock upper bound
+; Use PRU clock via NOP to achieve higher frequencies
+WAIT_EXT_CLOCK .macro Rx, op
+	WBC	R31, 16														; Clock at P9_26
+	WBS	R31, 16
+	MOV R30.b0, Rx
+	op
+	.endm
+
+NOP	.macro
+	 ADD R0.b0, R0.b0, R0.b0
+	.endm
+
+	.sect ".text:main"
+	.global asm_main
+asm_main:
+	LDI32 	R0, 0xBEA61E10											; Firmware version password
+	LDI	R1, PRU0_PRU1_INTERRUPT										; Necessary to reset PRU0's interrupt event
+	HALT
+
+	; When configuration is written
+	LDI 	R31, 32 | (PRU0_ARM_INTERRUPT_B - 16)					; Notify ARM that configuration is loaded
+	HALT
+
+	; Actual waveform generation
+	WBS		R31, 31													; Wait for start signal
+	SBCO	&R1, C0, 0x24, 4										; Clear PRU0 interrupt
+	XIN		10, &R13, 64											; Copy data from scratchpad
+	WAIT_EXT_CLOCK	R13.b0, "LSR	R13.b0, R13.b0, 4"
+	WAIT_EXT_CLOCK	R13.b0, "LDI	R31, PRU1_PRU0_INTERRUPT + 16"
+	WAIT_EXT_CLOCK	R13.b1, "LSR	R13.b1, R13.b1, 4"
+	WAIT_EXT_CLOCK	R13.b1, "NOP"
+$samplem8$:
+	WAIT_EXT_CLOCK	R13.b2, "LSR	R13.b2, R13.b2, 4"
+	WAIT_EXT_CLOCK	R13.b2, "NOP"
+	WAIT_EXT_CLOCK	R13.b3, "LSR	R13.b3, R13.b3, 4"
+	WAIT_EXT_CLOCK	R13.b3, "NOP"
+	WAIT_EXT_CLOCK	R14.b0, "LSR	R14.b0, R14.b0, 4"
+	WAIT_EXT_CLOCK	R14.b0, "NOP"
+	WAIT_EXT_CLOCK	R14.b1, "LSR	R14.b1, R14.b1, 4"
+	WAIT_EXT_CLOCK	R14.b1, "NOP"
+	WAIT_EXT_CLOCK	R14.b2, "LSR	R14.b2, R14.b2, 4"
+	WAIT_EXT_CLOCK	R14.b2, "NOP"
+	WAIT_EXT_CLOCK	R14.b3, "LSR	R14.b3, R14.b3, 4"
+	WAIT_EXT_CLOCK	R14.b3, "NOP"
+	WAIT_EXT_CLOCK	R15.b0, "LSR	R15.b0, R15.b0, 4"
+	WAIT_EXT_CLOCK	R15.b0, "NOP"
+	WAIT_EXT_CLOCK	R15.b1, "LSR	R15.b1, R15.b1, 4"
+	WAIT_EXT_CLOCK	R15.b1, "NOP"
+	WAIT_EXT_CLOCK	R15.b2, "LSR	R15.b2, R15.b2, 4"
+	WAIT_EXT_CLOCK	R15.b2, "NOP"
+	WAIT_EXT_CLOCK	R15.b3, "LSR	R15.b3, R15.b3, 4"
+	WAIT_EXT_CLOCK	R15.b3, "NOP"
+	WAIT_EXT_CLOCK	R16.b0, "LSR	R16.b0, R16.b0, 4"
+	WAIT_EXT_CLOCK	R16.b0, "NOP"
+	WAIT_EXT_CLOCK	R16.b1, "LSR	R16.b1, R16.b1, 4"
+	WAIT_EXT_CLOCK	R16.b1, "NOP"
+	WAIT_EXT_CLOCK	R16.b2, "LSR	R16.b2, R16.b2, 4"
+	WAIT_EXT_CLOCK	R16.b2, "NOP"
+	WAIT_EXT_CLOCK	R16.b3, "LSR	R16.b3, R16.b3, 4"
+	WAIT_EXT_CLOCK	R16.b3, "NOP"
+	WAIT_EXT_CLOCK	R17.b0, "LSR	R17.b0, R17.b0, 4"
+	WAIT_EXT_CLOCK	R17.b0, "NOP"
+	WAIT_EXT_CLOCK	R17.b1, "LSR	R17.b1, R17.b1, 4"
+	WAIT_EXT_CLOCK	R17.b1, "NOP"
+	WAIT_EXT_CLOCK	R17.b2, "LSR	R17.b2, R17.b2, 4"
+	WAIT_EXT_CLOCK	R17.b2, "NOP"
+	WAIT_EXT_CLOCK	R17.b3, "LSR	R17.b3, R17.b3, 4"
+	WAIT_EXT_CLOCK	R17.b3, "NOP"
+	WAIT_EXT_CLOCK	R18.b0, "LSR	R18.b0, R18.b0, 4"
+	WAIT_EXT_CLOCK	R18.b0, "NOP"
+	WAIT_EXT_CLOCK	R18.b1, "LSR	R18.b1, R18.b1, 4"
+	WAIT_EXT_CLOCK	R18.b1, "NOP"
+	WAIT_EXT_CLOCK	R18.b2, "LSR	R18.b2, R18.b2, 4"
+	WAIT_EXT_CLOCK	R18.b2, "NOP"
+	WAIT_EXT_CLOCK	R18.b3, "LSR	R18.b3, R18.b3, 4"
+	WAIT_EXT_CLOCK	R18.b3, "NOP"
+	WAIT_EXT_CLOCK	R19.b0, "LSR	R19.b0, R19.b0, 4"
+	WAIT_EXT_CLOCK	R19.b0, "NOP"
+	WAIT_EXT_CLOCK	R19.b1, "LSR	R19.b1, R19.b1, 4"
+	WAIT_EXT_CLOCK	R19.b1, "NOP"
+	WAIT_EXT_CLOCK	R19.b2, "LSR	R19.b2, R19.b2, 4"
+	WAIT_EXT_CLOCK	R19.b2, "NOP"
+	WAIT_EXT_CLOCK	R19.b3, "LSR	R19.b3, R19.b3, 4"
+	WAIT_EXT_CLOCK	R19.b3, "NOP"
+	WAIT_EXT_CLOCK	R20.b0, "LSR	R20.b0, R20.b0, 4"
+	WAIT_EXT_CLOCK	R20.b0, "NOP"
+	WAIT_EXT_CLOCK	R20.b1, "LSR	R20.b1, R20.b1, 4"
+	WAIT_EXT_CLOCK	R20.b1, "NOP"
+	WAIT_EXT_CLOCK	R20.b2, "LSR	R20.b2, R20.b2, 4"
+	WAIT_EXT_CLOCK	R20.b2, "NOP"
+	WAIT_EXT_CLOCK	R20.b3, "LSR	R20.b3, R20.b3, 4"
+	WAIT_EXT_CLOCK	R20.b3, "NOP"
+	WAIT_EXT_CLOCK	R21.b0, "LSR	R21.b0, R21.b0, 4"
+	WAIT_EXT_CLOCK	R21.b0, "NOP"
+	WAIT_EXT_CLOCK	R21.b1, "LSR	R21.b1, R21.b1, 4"
+	WAIT_EXT_CLOCK	R21.b1, "NOP"
+	WAIT_EXT_CLOCK	R21.b2, "LSR	R21.b2, R21.b2, 4"
+	WAIT_EXT_CLOCK	R21.b2, "NOP"
+	WAIT_EXT_CLOCK	R21.b3, "LSR	R21.b3, R21.b3, 4"
+	WAIT_EXT_CLOCK	R21.b3, "NOP"	
+	WAIT_EXT_CLOCK	R22.b0, "LSR	R22.b0, R22.b0, 4"
+	WAIT_EXT_CLOCK	R22.b0, "NOP"
+	WAIT_EXT_CLOCK	R22.b1, "LSR	R22.b1, R22.b1, 4"
+	WAIT_EXT_CLOCK	R22.b1, "NOP"
+	WAIT_EXT_CLOCK	R22.b2, "LSR	R22.b2, R22.b2, 4"
+	WAIT_EXT_CLOCK	R22.b2, "NOP"
+	WAIT_EXT_CLOCK	R22.b3, "LSR	R22.b3, R22.b3, 4"
+	WAIT_EXT_CLOCK	R22.b3, "NOP"	
+	WAIT_EXT_CLOCK	R23.b0, "LSR	R23.b0, R23.b0, 4"
+	WAIT_EXT_CLOCK	R23.b0, "NOP"
+	WAIT_EXT_CLOCK	R23.b1, "LSR	R23.b1, R23.b1, 4"
+	WAIT_EXT_CLOCK	R23.b1, "NOP"
+	WAIT_EXT_CLOCK	R23.b2, "LSR	R23.b2, R23.b2, 4"
+	WAIT_EXT_CLOCK	R23.b2, "NOP"
+	WAIT_EXT_CLOCK	R23.b3, "LSR	R23.b3, R23.b3, 4"
+	WAIT_EXT_CLOCK	R23.b3, "NOP"
+	WAIT_EXT_CLOCK	R24.b0, "LSR	R24.b0, R24.b0, 4"
+	WAIT_EXT_CLOCK	R24.b0, "NOP"
+	WAIT_EXT_CLOCK	R24.b1, "LSR	R24.b1, R24.b1, 4"
+	WAIT_EXT_CLOCK	R24.b1, "NOP"
+	WAIT_EXT_CLOCK	R24.b2, "LSR	R24.b2, R24.b2, 4"
+	WAIT_EXT_CLOCK	R24.b2, "NOP"
+	WAIT_EXT_CLOCK	R24.b3, "LSR	R24.b3, R24.b3, 4"
+	WAIT_EXT_CLOCK	R24.b3, "NOP"
+	WAIT_EXT_CLOCK	R25.b0, "LSR	R25.b0, R25.b0, 4"
+	WAIT_EXT_CLOCK	R25.b0, "NOP"
+	WAIT_EXT_CLOCK	R25.b1, "LSR	R25.b1, R25.b1, 4"
+	WAIT_EXT_CLOCK	R25.b1, "NOP"
+	WAIT_EXT_CLOCK	R25.b2, "LSR	R25.b2, R25.b2, 4"
+	WAIT_EXT_CLOCK	R25.b2, "NOP"
+	WAIT_EXT_CLOCK	R25.b3, "LSR	R25.b3, R25.b3, 4"
+	WAIT_EXT_CLOCK	R25.b3, "NOP"
+	WAIT_EXT_CLOCK	R26.b0, "LSR	R26.b0, R26.b0, 4"
+	WAIT_EXT_CLOCK	R26.b0, "NOP"
+	WAIT_EXT_CLOCK	R26.b1, "LSR	R26.b1, R26.b1, 4"
+	WAIT_EXT_CLOCK	R26.b1, "NOP"
+	WAIT_EXT_CLOCK	R26.b2, "LSR	R26.b2, R26.b2, 4"
+	WAIT_EXT_CLOCK	R26.b2, "NOP"
+	WAIT_EXT_CLOCK	R26.b3, "LSR	R26.b3, R26.b3, 4"
+	WAIT_EXT_CLOCK	R26.b3, "NOP"
+	WAIT_EXT_CLOCK	R27.b0, "LSR	R27.b0, R27.b0, 4"
+	WAIT_EXT_CLOCK	R27.b0, "NOP"
+	WAIT_EXT_CLOCK	R27.b1, "LSR	R27.b1, R27.b1, 4"
+	WAIT_EXT_CLOCK	R27.b1, "NOP"
+	WAIT_EXT_CLOCK	R27.b2, "LSR	R27.b2, R27.b2, 4"
+	WAIT_EXT_CLOCK	R27.b2, "NOP"
+	WAIT_EXT_CLOCK	R27.b3, "LSR	R27.b3, R27.b3, 4"
+	WAIT_EXT_CLOCK	R27.b3, "NOP"
+	WAIT_EXT_CLOCK	R28.b0, "LSR	R28.b0, R28.b0, 4"
+	WAIT_EXT_CLOCK	R28.b0, "NOP"
+	WAIT_EXT_CLOCK	R28.b1, "LSR	R28.b1, R28.b1, 4"
+	WAIT_EXT_CLOCK	R28.b1, "NOP"
+	WAIT_EXT_CLOCK	R28.b2, "LSR	R28.b2, R28.b2, 4"
+	WAIT_EXT_CLOCK	R28.b2, "NOP"
+	WAIT_EXT_CLOCK	R28.b3, "LSR	R28.b3, R28.b3, 4"
+	WAIT_EXT_CLOCK	R28.b3, "XIN	10, &R13, 64"
+	WAIT_EXT_CLOCK	R13.b0, "LSR	R13.b0, R13.b0, 4"
+	WAIT_EXT_CLOCK	R13.b0, "LDI	R31, PRU1_PRU0_INTERRUPT + 16"
+	WAIT_EXT_CLOCK	R13.b1, "LSR	R13.b1, R13.b1, 4"
+	WAIT_EXT_CLOCK	R13.b1, "JMP	$samplem8$"
+
+	; End-of-firmware
+	HALT

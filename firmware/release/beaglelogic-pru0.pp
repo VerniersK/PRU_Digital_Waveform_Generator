@@ -1,0 +1,14 @@
+release/beaglelogic-pru0.object: beaglelogic-pru0.c
+release/beaglelogic-pru0.object: /usr/share/ti/cgt-pru/include/stdint.h
+release/beaglelogic-pru0.object: /usr/share/ti/cgt-pru/include/stdio.h
+release/beaglelogic-pru0.object: /usr/share/ti/cgt-pru/include/linkage.h
+release/beaglelogic-pru0.object: /usr/share/ti/cgt-pru/include/stdarg.h
+release/beaglelogic-pru0.object: /usr/lib/ti/pru-software-support-package/include/am335x/pru_cfg.h
+release/beaglelogic-pru0.object: /usr/lib/ti/pru-software-support-package/include/am335x/pru_intc.h
+release/beaglelogic-pru0.object: /usr/lib/ti/pru-software-support-package/include/rsc_types.h
+release/beaglelogic-pru0.object: /usr/lib/ti/pru-software-support-package/include/pru_types.h
+release/beaglelogic-pru0.object: pru_defs.h
+release/beaglelogic-pru0.object: /usr/lib/ti/pru-software-support-package/include/am335x/pru_ctrl.h
+release/beaglelogic-pru0.object: resource_table_0.h
+release/beaglelogic-pru0.object: /usr/share/ti/cgt-pru/include/stddef.h
+release/beaglelogic-pru0.object: /usr/lib/ti/pru-software-support-package/include/pru_virtio_ids.h
