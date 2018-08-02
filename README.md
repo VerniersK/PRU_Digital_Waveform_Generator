@@ -16,7 +16,7 @@ The digital waveform generator supports different output configurations which in
     - 99.7633 % reliability at 25 MSPS
     - 97.4034 % reliability at 50 MSPS
 
-Furthermore, an external sampling clock pin is available at pin P9_26. 
+Furthermore, an external sampling clock pin is available at pin P9_26. The digital waveform generator has a 300 MB RAM memory available where modulation waveforms can be stored. 
 Currently, the 4 output configuration is available in this repository.
 
 ## Project Installation
