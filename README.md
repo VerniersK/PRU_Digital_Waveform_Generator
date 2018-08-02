@@ -36,3 +36,13 @@ To verify if the module is loaded, following commands can be entered:
   - lsmod
   - modinfo beaglelogic
   - journalctl |grep beaglelogic
+
+## Python Example
+
+The Python example contains two files:
+
+  - Main.py
+  - PRUdata.bin
+
+The first file shows a basic framework to reconstruct 4 arbitrary square waveforms (at pins P8_43 to P8_46) described by the provided binary file. Furthermore, the necessary buffer size and memory allocation is performed as well as the digital waveform generator's enable.
+The latter (binary file) is not specific necessary, modulation waveforms can also be generated and multiplexed in Python before writing them to the device via its file descriptor.
