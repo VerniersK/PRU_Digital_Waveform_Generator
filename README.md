@@ -45,4 +45,4 @@ The Python example contains two files:
   - PRUdata.bin
 
 The first file shows a basic framework to reconstruct 4 arbitrary square waveforms (at pins P8_43 to P8_46) described by the provided binary file. Furthermore, the necessary buffer size and memory allocation is performed as well as the digital waveform generator's enable.
-The latter (binary file) is not specific necessary, modulation waveforms can also be generated and multiplexed in Python before writing them to the device via its file descriptor.
+The latter (binary file) is not specific necessary, modulation waveforms can also be generated and multiplexed in Python before writing them to the device via its file descriptor. The 4 waveforms contain each 16 000 samples. Thus, a sample rate of 1 kHz results into a 16 second waveform duration.
