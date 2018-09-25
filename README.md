@@ -25,7 +25,7 @@ To install this project:
 
   - Clone the repository into the following folder: opt/
   - Command: sudo chown -R debian:debian opt/PRU_Digital_Waveform_Generator-master/
-  - Command: cd opt/PRU_Digital_Waveform_Generator-master/
+  - Command: cd /opt/PRU_Digital_Waveform_Generator-master/scripts/
   - Install: sudo ./install.sh
     - If install.sh is not an executable, perform: chmod +x install.sh
   - If everything went well, reboot the Beaglebone
