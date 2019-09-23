@@ -36,6 +36,16 @@ To verify if the module is loaded, following commands can be entered:
   - lsmod
   - modinfo beaglelogic
   - journalctl |grep beaglelogic
+  
+When the following error occurs during installation: 'beaglelogic: disagrees about version of symbol module_layout', apply the following steps to install the correct kernel version for the PRU digital waveform generator.
+
+ -	apt-get install linux-image-4.9.82-ti-r102
+ -	/opt/scripts/tools/update_kernel.sh --ti-rt-channel --lts-4_9
+ -	Reboot the Beaglebone.
+ -	apt-cache search linux-headers-$(uname -r)
+ -	apt-get install linux-headers-$(uname -r)
+ -	Launch the PRU digital waveform generator installation script.
+
 
 ## Python Example
 
